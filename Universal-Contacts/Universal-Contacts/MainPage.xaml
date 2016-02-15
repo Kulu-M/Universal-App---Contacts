@@ -1,0 +1,63 @@
+﻿<Page
+    x:Class="Universal_Contacts.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Universal_Contacts"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="Page_Loaded">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Pivot Title="Kontakte" Name="pi_person">
+            <PivotItem Header="Übersicht">
+                <Grid>
+                    <ListBox x:Name="lb_persons" Margin="0,0,0,10"  SelectionChanged="Lb_persons_OnSelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding vorname}"/>
+                                    <TextBlock Text=" - "/>
+                                    <TextBlock Text="{Binding nachname}" Margin="5,0"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <!--<Grid>
+                        <ListBox x:Name="lb_persons" DisplayMemberPath="vorname" Margin="0,0,0,10" SelectionChanged="Lb_persons_OnSelectionChanged">
+                        </ListBox>
+                    </Grid>-->
+
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="Details">
+                <Grid DataContext="{Binding ElementName=lb_persons, Path=SelectedItem}">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Name" Margin="10,10,0,10"></TextBlock>
+                            <TextBlock Text="Surname" Margin="10,10,0,10"></TextBlock>
+                            <TextBlock Text="Sex" Margin="10,10,0,10"></TextBlock>
+                            <TextBlock Text="Date of Birth" Margin="10,10,0,10"></TextBlock>
+                            <TextBlock Text="Family status" Margin="10,10,0,10"></TextBlock>
+                            <TextBlock Text="Postal Code" Margin="10,10,0,10"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock x:Name="tb_vorname" Text="{Binding vorname}" Margin="10,10,0,10"></TextBlock>
+                            <TextBlock x:Name="tb_nachname" Text="{Binding nachname}" Margin="10,10,0,10"></TextBlock>
+                            <TextBlock x:Name="tb_sex" Text="{Binding gender}" Margin="10,10,0,10"></TextBlock>
+                            <TextBlock x:Name="tb_dob" Text="{Binding dateofbirth}" Margin="10,10,0,10"></TextBlock>
+                            <TextBlock x:Name="tb_fam" Text="{Binding familyStatz}" Margin="10,10,0,10"></TextBlock>
+                            <TextBlock x:Name="tb_zip" Text="{Binding zipcode}" Margin="10,10,0,10"></TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </PivotItem>
+        </Pivot>
+
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:Name="appBarButton" Icon="AddFriend" Label="Add Person" Click="b_generate_Click"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>
