@@ -53,7 +53,7 @@
                             <TextBlock x:Name="tb_dob" Text="{Binding dateofbirth}"/>
                             <TextBlock x:Name="tb_age" Text="{Binding dateofbirth, Converter={StaticResource AgeConverter}}"></TextBlock>
                             <TextBlock x:Name="tb_fam" Text="{Binding familyStatz}" Margin="10,10,0,10"></TextBlock>
-                            <TextBox x:Name="tb_zip" Text="{Binding zipcode}" Margin="10,10,0,10"></TextBox>
+                            <TextBox x:Name="tb_zip" Text="{Binding zipcode, Mode=TwoWay}" TextChanged="tb_text_textchanged" Margin="10,10,0,10"></TextBox>
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -64,7 +64,11 @@
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton x:Name="appBarButton" Icon="AddFriend" Label="Add Person" Click="b_generate_Click"/>
-            <AppBarButton x:Name="appBarButton_save" Icon="Save" Label="Save List" Click="AppBarButton_save_OnClick"/>
+            <AppBarButton x:Name="appBarButton_save" Icon="Save" Label="Save List" Click="AppBarButton_add_OnClick"/>
+            <AppBarButton x:Name="appBarButton_add" Icon="Add" Label="Add" Click="AppBarButton_add_OnClick"/>
+            <AppBarButton x:Name="appBarButton_prev" Icon="Previous" Label="Previos" Click="AppBarButton_prev_OnClick"/>
+            <AppBarButton x:Name="appBarButton_next" Icon="Next" Label="Next" Click="AppBarButton_next_OnClick"/>
+            <AppBarButton x:Name="appBarButton_delete" Icon="Delete" Label="Delete" Click="AppBarButton_delete_OnClick"/>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

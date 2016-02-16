@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,10 +23,15 @@ namespace Universal_Contacts
     /// </summary>
     sealed partial class App : Application
     {
+        public static ObservableCollection<Person> _persons;
+        public static string savefile = "contactfile.dat";
+        public static bool _save = false;
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
+        /// 
         public App()
         {
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
@@ -40,8 +46,11 @@ namespace Universal_Contacts
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            _persons = await SaveLoad.readObjektAsync<ObservableCollection<Person>>(App.savefile);
+            if (_persons == null)
+                _persons = new ObservableCollection<Person>();
 
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
@@ -100,6 +109,8 @@ namespace Universal_Contacts
         /// <param name="e">Details about the suspend request.</param>
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
+            //Speichern hier geht nicht, da die App sich schneller beendet als der Speichervorgang abgeschlossen ist
+            
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();

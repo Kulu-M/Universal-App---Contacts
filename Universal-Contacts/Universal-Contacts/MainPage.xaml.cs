@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reflection.Metadata;
@@ -26,27 +27,22 @@ namespace Universal_Contacts
     public sealed partial class MainPage : Page
     {
         Random rnd = new Random();
-        public List<Person> persons;
 
         public  MainPage()
         {
             this.InitializeComponent();
         }
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            string testfile = "blafile.dat";
-
-            persons = await SaveLoad.readObjektAsync<List<Person>>(testfile);
-
-            lb_persons.ItemsSource = persons;
+            lb_persons.ItemsSource = App._persons;
 
             this.DataContext = this;
         }
 
         private void b_generate_Click(object sender, RoutedEventArgs e)
         {
-            persons = new List<Person>();
+            App._persons = new ObservableCollection<Person>();
             generatePersons(20);
         }
 
@@ -68,9 +64,9 @@ namespace Universal_Contacts
 
                 person.zipcode = generateZipCode();
 
-                persons.Add(person);
+                App._persons.Add(person);
             }
-            lb_persons.ItemsSource = persons;
+            lb_persons.ItemsSource = App._persons;
         }
 
         private string generateFamilyStatus()
@@ -167,20 +163,52 @@ namespace Universal_Contacts
             }
         }
 
-        public static readonly DependencyProperty agePropertyProperty = DependencyProperty.Register(
-            "ageProperty", typeof (int), typeof (MainPage), new PropertyMetadata(default(int)));
-
         public int ageProperty
         {
             get { return (int) GetValue(agePropertyProperty); }
             set { SetValue(agePropertyProperty, value); }
         }
 
+        private void AppBarButton_prev_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (lb_persons.SelectedIndex > 0)
+            lb_persons.SelectedIndex--;
+        }
+
+        private void AppBarButton_next_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (lb_persons.SelectedIndex < App._persons.Count - 1)
+            lb_persons.SelectedIndex ++;
+        }
+
+        private void tb_text_textchanged(object sender, TextChangedEventArgs e)
+        {
+            App._save = true;
+        }
+
         private void AppBarButton_save_OnClick(object sender, RoutedEventArgs e)
         {
-            string testfile = "blafile.dat";
+            //if (App._save)
+            //{
+                
+                var x = SaveLoad.writeObjektAsync(App.savefile, App._persons);
+            //}
+        }
 
-            var x = SaveLoad.writeObjektAsync(testfile, persons);
+        public static readonly DependencyProperty agePropertyProperty = DependencyProperty.Register(
+            "ageProperty", typeof(int), typeof(MainPage), new PropertyMetadata(default(int)));
+
+        private void AppBarButton_delete_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (lb_persons.SelectedItem == null)
+                return;
+            App._persons.Remove(lb_persons.SelectedItem as Person);
+            pi_person.SelectedIndex = 0;
+        }
+
+        private void AppBarButton_add_OnClick(object sender, RoutedEventArgs e)
+        {
+             
         }
     }
 }
