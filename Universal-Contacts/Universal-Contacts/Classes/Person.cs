@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Universal_Contacts.Classes
+namespace Universal_Contacts
 {
     public class Person
     {

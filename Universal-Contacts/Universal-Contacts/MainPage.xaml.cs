@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.Store;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.ViewManagement;
@@ -13,29 +16,32 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Universal_Contacts.Classes;
+using Universal_Contacts;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace Universal_Contacts
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
 
     public sealed partial class MainPage : Page
     {
         Random rnd = new Random();
         public List<Person> persons;
 
-        public MainPage()
+        public  MainPage()
         {
             this.InitializeComponent();
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-                    
+            string testfile = "blafile.dat";
+
+            persons = await SaveLoad.readObjektAsync<List<Person>>(testfile);
+
+            lb_persons.ItemsSource = persons;
+
+            this.DataContext = this;
         }
 
         private void b_generate_Click(object sender, RoutedEventArgs e)
@@ -64,7 +70,7 @@ namespace Universal_Contacts
 
                 persons.Add(person);
             }
-            setListBoxItemSource();  
+            lb_persons.ItemsSource = persons;
         }
 
         private string generateFamilyStatus()
@@ -82,11 +88,6 @@ namespace Universal_Contacts
                     return Person.familyStatus.Widowed.ToString();      
             }
             return null;
-        }
-
-        private void setListBoxItemSource()
-        {
-            lb_persons.ItemsSource = persons;
         }
 
         private string generatePersonGender()
@@ -161,7 +162,25 @@ namespace Universal_Contacts
             else
             {
                 pi_person.SelectedIndex = 1;
+                var now = DateTime.Today;
+                var result = (now - (lb_persons.SelectedItem as Person).dateofbirth).Days / 365;
             }
+        }
+
+        public static readonly DependencyProperty agePropertyProperty = DependencyProperty.Register(
+            "ageProperty", typeof (int), typeof (MainPage), new PropertyMetadata(default(int)));
+
+        public int ageProperty
+        {
+            get { return (int) GetValue(agePropertyProperty); }
+            set { SetValue(agePropertyProperty, value); }
+        }
+
+        private void AppBarButton_save_OnClick(object sender, RoutedEventArgs e)
+        {
+            string testfile = "blafile.dat";
+
+            var x = SaveLoad.writeObjektAsync(testfile, persons);
         }
     }
 }

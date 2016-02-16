@@ -6,6 +6,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Loaded="Page_Loaded">
+    
+    <Page.Resources>
+        <local:AgeConverter x:Key="AgeConverter"></local:AgeConverter>
+    </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot Title="Kontakte" Name="pi_person">
@@ -36,7 +40,8 @@
                         <StackPanel Orientation="Vertical">
                             <TextBlock Text="Name" Margin="10,10,0,10"></TextBlock>
                             <TextBlock Text="Surname" Margin="10,10,0,10"></TextBlock>
-                            <TextBlock Text="Sex" Margin="10,10,0,10"></TextBlock>
+                            <TextBlock Text="Gender" Margin="10,10,0,10"></TextBlock>
+                            
                             <TextBlock Text="Date of Birth" Margin="10,10,0,10"></TextBlock>
                             <TextBlock Text="Family status" Margin="10,10,0,10"></TextBlock>
                             <TextBlock Text="Postal Code" Margin="10,10,0,10"></TextBlock>
@@ -45,9 +50,10 @@
                             <TextBlock x:Name="tb_vorname" Text="{Binding vorname}" Margin="10,10,0,10"></TextBlock>
                             <TextBlock x:Name="tb_nachname" Text="{Binding nachname}" Margin="10,10,0,10"></TextBlock>
                             <TextBlock x:Name="tb_sex" Text="{Binding gender}" Margin="10,10,0,10"></TextBlock>
-                            <TextBlock x:Name="tb_dob" Text="{Binding dateofbirth}" Margin="10,10,0,10"></TextBlock>
+                            <TextBlock x:Name="tb_dob" Text="{Binding dateofbirth}"/>
+                            <TextBlock x:Name="tb_age" Text="{Binding dateofbirth, Converter={StaticResource AgeConverter}}"></TextBlock>
                             <TextBlock x:Name="tb_fam" Text="{Binding familyStatz}" Margin="10,10,0,10"></TextBlock>
-                            <TextBlock x:Name="tb_zip" Text="{Binding zipcode}" Margin="10,10,0,10"></TextBlock>
+                            <TextBox x:Name="tb_zip" Text="{Binding zipcode}" Margin="10,10,0,10"></TextBox>
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -58,6 +64,7 @@
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton x:Name="appBarButton" Icon="AddFriend" Label="Add Person" Click="b_generate_Click"/>
+            <AppBarButton x:Name="appBarButton_save" Icon="Save" Label="Save List" Click="AppBarButton_save_OnClick"/>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>
