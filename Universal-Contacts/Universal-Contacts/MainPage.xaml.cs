@@ -37,7 +37,7 @@ namespace Universal_Contacts
         {
             lb_persons.ItemsSource = App._persons;
 
-            this.DataContext = this;
+            //this.DataContext = this;
         }
 
         private void b_generate_Click(object sender, RoutedEventArgs e)
@@ -192,6 +192,7 @@ namespace Universal_Contacts
             //{
                 
                 var x = SaveLoad.writeObjektAsync(App.savefile, App._persons);
+
             //}
         }
 
@@ -208,7 +209,9 @@ namespace Universal_Contacts
 
         private void AppBarButton_add_OnClick(object sender, RoutedEventArgs e)
         {
-             
+            var p = new Person {vorname = "Please", nachname = "change"};
+            App._persons.Add(p);
+            lb_persons.SelectedIndex = App._persons.Count - 1;
         }
     }
 }
