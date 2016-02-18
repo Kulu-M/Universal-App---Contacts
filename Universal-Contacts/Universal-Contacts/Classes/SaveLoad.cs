@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
@@ -67,17 +68,62 @@ namespace Universal_Contacts
 
         public static async Task<T> readXmlFile<T>(string datei)
         {
+            try
+            {
             var file = await
-                Windows.ApplicationModel.Package.Current.InstalledLocation.GetFileAsync(@"Data\" + datei + ".xml");
-            var stream = await file.OpenReadAsync();
-            var rdr = new StreamReader(stream.AsStream());
-            var contents = await rdr.ReadToEndAsync();
+                            Windows.ApplicationModel.Package.Current.InstalledLocation.GetFileAsync(@"Data\" + datei + ".xml");
+                        var stream = await file.OpenReadAsync();
+                        var rdr = new StreamReader(stream.AsStream());
+                        var contents = await rdr.ReadToEndAsync();
 
-            XmlReader reader = XmlReader.Create(new StringReader(contents));
-            XmlSerializer serializer = new XmlSerializer(typeof(T));
-            var daten = (T) serializer.Deserialize(reader);
-            reader.Dispose();
-            return daten;
+                        XmlReader reader = XmlReader.Create(new StringReader(contents));
+                        XmlSerializer serializer = new XmlSerializer(typeof(T));
+                        var daten = (T) serializer.Deserialize(reader);
+                        reader.Dispose();
+                        return daten;
+            }
+            catch (Exception)
+            {
+                //create empy List
+                throw;
+            }  
+        }
+
+
+        //url:
+        //@"http://ainf.hiai.de/studium/spielwiese/myxmlfile.xml";
+
+        public static async Task<T> readXmlFromHttp<T> (string url)
+        {
+            HttpWebRequest myHttpRequest = (HttpWebRequest) WebRequest.Create(url);
+            myHttpRequest.Method = "GET"; //POST
+            myHttpRequest.ContentType = "text/xml"; //etc
+
+            try
+            {
+                var response = (HttpWebResponse)await myHttpRequest.GetResponseAsync();
+                Stream resStream = response.GetResponseStream();
+
+                string result;
+                using (StreamReader read = new StreamReader(resStream))
+                {
+                    result = await read.ReadToEndAsync();
+                    read.Dispose();
+                }
+
+                XmlReader reader = XmlReader.Create(new StringReader(result));
+                XmlSerializer serializer = new XmlSerializer(typeof(T));
+                var daten = (T) serializer.Deserialize(reader);
+                reader.Dispose();
+                return daten;
+            }
+            catch (Exception)
+            {
+                //Abfangen falls Server nicht antwortet
+                throw;
+            }
+            
+
         }
     }
 }

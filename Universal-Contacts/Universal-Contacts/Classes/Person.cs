@@ -26,6 +26,10 @@ namespace Universal_Contacts
             Divorced
         }
 
-        public Person () { }
+        //Vom Server: name, plz, alter
+        public string name { get; set; }
+        public string plz { get; set; }
+        public string alter { get; set; }
+        
     }
 }

@@ -48,8 +48,11 @@ namespace Universal_Contacts
         /// <param name="e">Details about the launch request and process.</param>
         protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            //test ob von XML gelesen werden kann
+            //var test = await SaveLoad.readXmlFile<ObservableCollection<Person>>("persons");
 
-            var test = await SaveLoad.readXmlFile<ObservableCollection<Person>>("persons");
+            //test ob XML von URL gelesen werden kann
+            var test2 = await SaveLoad.readXmlFromHttp<ObservableCollection<Person>>(@"http://ainf.hiai.de/studium/spielwiese/myxmlfile.xml");
 
             _persons = await SaveLoad.readObjektAsync<ObservableCollection<Person>>(App.savefile);
             if (_persons == null)
