@@ -48,6 +48,9 @@ namespace Universal_Contacts
         /// <param name="e">Details about the launch request and process.</param>
         protected async override void OnLaunched(LaunchActivatedEventArgs e)
         {
+
+            var test = await SaveLoad.readXmlFile<ObservableCollection<Person>>("persons");
+
             _persons = await SaveLoad.readObjektAsync<ObservableCollection<Person>>(App.savefile);
             if (_persons == null)
                 _persons = new ObservableCollection<Person>();
@@ -113,6 +116,12 @@ namespace Universal_Contacts
             
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
+
+            if (App._save)
+            {
+                var x = SaveLoad.writeObjektAsync(App.savefile, App._persons);
+            }
+
             deferral.Complete();
         }
     }

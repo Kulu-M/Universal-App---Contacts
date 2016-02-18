@@ -25,5 +25,7 @@ namespace Universal_Contacts
             Widowed,
             Divorced
         }
+
+        public Person () { }
     }
 }

@@ -172,7 +172,10 @@ namespace Universal_Contacts
         private void AppBarButton_prev_OnClick(object sender, RoutedEventArgs e)
         {
             if (lb_persons.SelectedIndex > 0)
-            lb_persons.SelectedIndex--;
+                lb_persons.SelectedIndex--;
+
+            if (lb_persons.SelectedIndex == -1)
+                pi_person.SelectedIndex = 0;
         }
 
         private void AppBarButton_next_OnClick(object sender, RoutedEventArgs e)
@@ -190,10 +193,14 @@ namespace Universal_Contacts
         {
             //if (App._save)
             //{
-                
-                var x = SaveLoad.writeObjektAsync(App.savefile, App._persons);
 
             //}
+
+            var x = SaveLoad.writeObjektAsync(App.savefile, App._persons);
+
+            RefreshList();
+            pi_person.SelectedIndex = 0;
+
         }
 
         public static readonly DependencyProperty agePropertyProperty = DependencyProperty.Register(
@@ -212,6 +219,12 @@ namespace Universal_Contacts
             var p = new Person {vorname = "Please", nachname = "change"};
             App._persons.Add(p);
             lb_persons.SelectedIndex = App._persons.Count - 1;
+        }
+
+        public void RefreshList()
+        {
+            lb_persons.ItemsSource = null;
+            lb_persons.ItemsSource = App._persons;
         }
     }
 }

@@ -6,6 +6,8 @@ using System.Linq.Expressions;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
 using Windows.Storage;
 using Windows.Storage.Streams;
 
@@ -39,7 +41,6 @@ namespace Universal_Contacts
             }   
         }
 
-
         public static async Task<T> readObjektAsync<T>(string datei)
         {
             StorageFile file;
@@ -62,6 +63,21 @@ namespace Universal_Contacts
                     inStream.Dispose();
                 return default(T);
             }
+        }
+
+        public static async Task<T> readXmlFile<T>(string datei)
+        {
+            var file = await
+                Windows.ApplicationModel.Package.Current.InstalledLocation.GetFileAsync(@"Data\" + datei + ".xml");
+            var stream = await file.OpenReadAsync();
+            var rdr = new StreamReader(stream.AsStream());
+            var contents = await rdr.ReadToEndAsync();
+
+            XmlReader reader = XmlReader.Create(new StringReader(contents));
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
+            var daten = (T) serializer.Deserialize(reader);
+            reader.Dispose();
+            return daten;
         }
     }
 }

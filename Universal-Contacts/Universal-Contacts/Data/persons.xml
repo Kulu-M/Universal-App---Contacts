@@ -1,0 +1,18 @@
+﻿<?xml version ="1.0" encoding="utf-8"?>
+<ArrayOfPerson xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Person>
+    <nachname>Test</nachname>
+    <vorname>test</vorname>
+    <plz>69120</plz>
+  </Person>
+  <Person>
+    <nachname>Test</nachname>
+    <vorname>test3</vorname>
+    <plz>69120</plz>
+  </Person>
+  <Person>
+    <nachname>Test</nachname>
+    <vorname>test3</vorname>
+    <plz>69120</plz>
+  </Person>
+</ArrayOfPerson>

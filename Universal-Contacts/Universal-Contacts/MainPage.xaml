@@ -37,7 +37,6 @@
             <PivotItem Header="Details">
                 <Grid DataContext="{Binding ElementName=lb_persons, Path=SelectedItem}">
 
-
                     <StackPanel Orientation="Vertical">
                         <TextBlock Text="Name" Margin="10,10,0,10"></TextBlock>
                         <TextBlock Text="Surname" Margin="10,10,0,10"></TextBlock>
@@ -46,7 +45,6 @@
                         <TextBlock Text="Family status" Margin="10,10,0,10"></TextBlock>
                         <TextBlock Text="Postal Code" Margin="10,10,0,10"></TextBlock>
                     </StackPanel>
-
 
                     <StackPanel Orientation="Vertical" Margin="45,0,0,0">
                         <TextBox x:Name="tb_vorname" Text="{Binding vorname, Mode=TwoWay}" TextChanged="tb_text_textchanged"  HorizontalAlignment="Center" Margin="0,5,0,5" Width="150"/>
