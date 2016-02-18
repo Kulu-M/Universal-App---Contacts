@@ -52,7 +52,9 @@ namespace Universal_Contacts
             //var test = await SaveLoad.readXmlFile<ObservableCollection<Person>>("persons");
 
             //test ob XML von URL gelesen werden kann
-            var test2 = await SaveLoad.readXmlFromHttp<ObservableCollection<Person>>(@"http://ainf.hiai.de/studium/spielwiese/myxmlfile.xml");
+            //var test2 = await SaveLoad.readXmlFromHttp<ObservableCollection<Person>>(@"http://ainf.hiai.de/studium/spielwiese/myxmlfile.xml");
+
+            SaveLoad.writeXmlToHttp();
 
             _persons = await SaveLoad.readObjektAsync<ObservableCollection<Person>>(App.savefile);
             if (_persons == null)

@@ -157,9 +157,15 @@ namespace Universal_Contacts
             }
             else
             {
+                //Change Pivot
                 pi_person.SelectedIndex = 1;
+
+                //Calc Age
                 var now = DateTime.Today;
                 var result = (now - (lb_persons.SelectedItem as Person).dateofbirth).Days / 365;
+
+                //Configure DatePicker
+                dp_dob.Date = (lb_persons.SelectedItem as Person).dateofbirth;
             }
         }
 
@@ -172,10 +178,7 @@ namespace Universal_Contacts
         private void AppBarButton_prev_OnClick(object sender, RoutedEventArgs e)
         {
             if (lb_persons.SelectedIndex > 0)
-                lb_persons.SelectedIndex--;
-
-            if (lb_persons.SelectedIndex == -1)
-                pi_person.SelectedIndex = 0;
+                lb_persons.SelectedIndex--;  
         }
 
         private void AppBarButton_next_OnClick(object sender, RoutedEventArgs e)
@@ -198,7 +201,7 @@ namespace Universal_Contacts
 
             var x = SaveLoad.writeObjektAsync(App.savefile, App._persons);
 
-            RefreshList();
+            refreshList();
             pi_person.SelectedIndex = 0;
 
         }
@@ -221,7 +224,7 @@ namespace Universal_Contacts
             lb_persons.SelectedIndex = App._persons.Count - 1;
         }
 
-        public void RefreshList()
+        public void refreshList()
         {
             lb_persons.ItemsSource = null;
             lb_persons.ItemsSource = App._persons;

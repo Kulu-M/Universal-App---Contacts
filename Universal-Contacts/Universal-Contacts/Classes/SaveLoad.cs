@@ -11,6 +11,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using System.Net.Http;
 
 namespace Universal_Contacts
 {
@@ -89,10 +90,8 @@ namespace Universal_Contacts
             }  
         }
 
-
-        //url:
+        //url für Testfile:
         //@"http://ainf.hiai.de/studium/spielwiese/myxmlfile.xml";
-
         public static async Task<T> readXmlFromHttp<T> (string url)
         {
             HttpWebRequest myHttpRequest = (HttpWebRequest) WebRequest.Create(url);
@@ -117,13 +116,54 @@ namespace Universal_Contacts
                 reader.Dispose();
                 return daten;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //Abfangen falls Server nicht antwortet
-                throw;
+                return default(T);
             }
-            
+        }
 
+        //url für Testfile:
+        //@"http://ainf.hiai.de/studium/spielwiese/Samer.php";
+        public static async void writeXmlToHttp ()
+        {
+            using (var client = new HttpClient())
+            {
+
+                var values = new Dictionary<string, string>
+                {
+                    { "test", "test2" },
+                    { "test3", "test4" }
+                };
+
+                var content = new FormUrlEncodedContent(values);
+
+
+                var response = await client.PostAsync("http://ainf.hiai.de/studium/Samer.php", content);
+                //oder : "SebastianPHPSkript.php"
+
+                var responseString = await response.Content.ReadAsStringAsync();
+            }
+
+            //YASS LÖSUNG:
+            //dat == List<Person> --> wird übergeben
+
+            //var dat = "test";
+
+            //using (MemoryStream stream = new MemoryStream())
+            //{
+            //    XmlSerializer serializeMemory = new XmlSerializer(typeof(List<Person>));
+            //    serializeMemory.Serialize(stream, dat);
+            //    StreamReader streamR = new StreamReader(stream);
+            //    stream.Position = 0;
+            //    var upDaten = streamR.ReadToEnd();
+
+            //    Uri requestUri = new Uri(@"http://ainf.hiai.de/studium/Samer2.php");
+            //    var objClint = new HttpClient();
+            //    HttpResponseMessage response =
+            //        await
+            //            objClint.PostAsync(requestUri,
+            //                new StringContent(upDaten, System.Text.Encoding.UTF8, "application/xml"));
+            //}
         }
     }
 }

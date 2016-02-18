@@ -93,6 +93,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="project.json" />
+    <None Include="Upload.php" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -113,6 +114,7 @@
     <None Include="Universal-Contacts_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FTP-Access.txt" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
