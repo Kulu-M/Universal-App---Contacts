@@ -209,12 +209,26 @@ namespace Universal_Contacts
         public static readonly DependencyProperty agePropertyProperty = DependencyProperty.Register(
             "ageProperty", typeof(int), typeof(MainPage), new PropertyMetadata(default(int)));
 
-        private void AppBarButton_delete_OnClick(object sender, RoutedEventArgs e)
+        private async void AppBarButton_delete_OnClick(object sender, RoutedEventArgs e)
         {
             if (lb_persons.SelectedItem == null)
                 return;
-            App._persons.Remove(lb_persons.SelectedItem as Person);
-            pi_person.SelectedIndex = 0;
+
+            var item = lb_persons.SelectedItem as Person;
+
+            var dialog = new Windows.UI.Popups.MessageDialog("Soll " + item.vorname + " gelöscht werden?", "Achtung!");
+            dialog.Commands.Add(new Windows.UI.Popups.UICommand("Ja") { Id = 0 });
+            dialog.Commands.Add(new Windows.UI.Popups.UICommand("Nein") { Id = 1 });
+
+            dialog.DefaultCommandIndex = 1;
+            dialog.CancelCommandIndex = 1;
+            var result = await dialog.ShowAsync();
+
+            if ((int)result.Id == 0)
+            {
+                App._persons.Remove(item);
+                pi_person.SelectedIndex = 0;
+            }
         }
 
         private void AppBarButton_add_OnClick(object sender, RoutedEventArgs e)
