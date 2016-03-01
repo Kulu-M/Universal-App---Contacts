@@ -1,0 +1,18 @@
+﻿<Page
+    x:Class="QuizBoard.Settings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:QuizBoard"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="Settings_OnLoaded"
+    >
+
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <TextBlock x:Uid="tblk_appname" FontSize="42"  HorizontalAlignment="Center" Foreground="DarkOliveGreen"/>
+        <ComboBox Name="cb_boardSize" x:Uid="cb_boardSize" SelectionChanged="cb_boardSize_SelectionChanged"/>
+        
+    </StackPanel>
+</Page>

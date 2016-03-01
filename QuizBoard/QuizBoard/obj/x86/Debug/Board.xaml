@@ -1,0 +1,23 @@
+﻿<Page x:ConnectionId='1'
+    x:Class="QuizBoard.Board"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:QuizBoard"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"                     >
+
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid x:ConnectionId='2' Height="{Binding ActualWidth, Mode=OneWay, RelativeSource={RelativeSource Mode=Self}}" Name="g_board">
+            <Ellipse x:ConnectionId='4' Name="el_player" Width="25" Height="25" Fill="Blue"></Ellipse>
+        </Grid>
+
+        <StackPanel>
+
+            <AppBarButton x:ConnectionId='3' Icon="Like" HorizontalAlignment="Center"                      />
+
+        </StackPanel>
+
+    </StackPanel>
+</Page>
+
