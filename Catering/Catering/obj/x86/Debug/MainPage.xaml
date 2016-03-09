@@ -1,0 +1,92 @@
+﻿<Page x:ConnectionId='1'
+    x:Class="Catering.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Catering"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"                      >
+
+
+    
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.Resources>
+            <local:NameErstellen x:Key="vorNachname"></local:NameErstellen>
+            <local:DateTimeToDateTimeOffsetConverter x:Key="dateKonvert"></local:DateTimeToDateTimeOffsetConverter>
+        </Grid.Resources>
+
+        <Pivot x:ConnectionId='2' Title="Catering" x:Name="pi_mainPi"                                              >
+            <PivotItem Header="Kundenliste">
+                <Grid>
+                    <TextBlock HorizontalAlignment="Left"
+             TextWrapping="Wrap" Text="Baja Catering" VerticalAlignment="Center"
+                   FontSize="25"
+                   Grid.Row="0"
+                   Foreground="OrangeRed" Margin="0,8" Width="350" TextAlignment="Center" />
+
+                    <StackPanel HorizontalAlignment="Left"  Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="340">
+                        <TextBox x:ConnectionId='3' Header="Filter"
+                     PlaceholderText="Kundenname eingeben"
+                     Name="tb_filter"                     
+                     Margin="0,20,0,10"                                     
+                     />
+
+
+                        <TextBlock>Geek</TextBlock>
+                        <ListBox x:ConnectionId='4' Name="lb_kunden" DisplayMemberPath="nachname"
+                     Width="320" Height="300"                                               />
+                    </StackPanel>
+                    </Grid>
+            </PivotItem>
+            <PivotItem Header="{Binding Converter={StaticResource vorNachname}, Mode=TwoWay}">
+                <Grid>
+
+                    <StackPanel>
+                        <TextBox TextWrapping="Wrap"
+                             Header="Anrede" Margin="0,5"
+                             Text="{Binding anrede, Mode=TwoWay}"/>
+                        <TextBox TextWrapping="Wrap"
+                             Header="Nachname" Margin="0,5"
+                             Text="{Binding nachname, Mode=TwoWay}"/>
+                        <TextBox TextWrapping="Wrap"
+                             Header="Vorname" Margin="0,5" 
+                             Text="{Binding vorname, Mode=TwoWay}"/>
+
+                        <TextBox TextWrapping="Wrap"
+                             Header="Telefon" Margin="0,5"
+                             Text="{Binding telefon, Mode=TwoWay}"/>
+                        <TextBox TextWrapping="Wrap"
+                             Header="E-Mail" Margin="0,5" 
+                             Text="{Binding eMail, Mode=TwoWay}"/>
+                        <TextBox TextWrapping="Wrap"
+                             Header="Kunde seit" Margin="0,5"
+                             Text="{Binding kundeSeit, Mode=TwoWay}"/>
+                    </StackPanel>
+
+                </Grid>
+            </PivotItem>
+        </Pivot>
+
+        
+        
+
+
+    </Grid>
+    
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Icon="Accept" Label="Einkaufsliste"/>
+                <AppBarButton Icon="Cancel" Label="Essen verwalten"/>
+            </CommandBar.SecondaryCommands>
+
+            <AppBarButton x:ConnectionId='5' x:Name="bA_delete" Icon="Delete" Label="Delete Customer"                      />
+            <AppBarButton x:ConnectionId='6' x:Name="bA_add" Icon="AddFriend" Label="Kunde hinzufügen"                      />
+            <AppBarButton x:ConnectionId='7' x:Name="bA_Orders" Label="Goto Orders" Icon="Go"                            />
+
+        </CommandBar>
+    </Page.BottomAppBar>
+    
+    
+</Page>
+

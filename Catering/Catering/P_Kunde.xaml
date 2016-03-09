@@ -1,0 +1,89 @@
+﻿<Page
+    x:Class="Catering.P_Kunde"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Catering"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="Page_Loaded">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.Resources>
+            <local:DateTimeToDateTimeOffsetConverter x:Key="dateConverter"/>
+        </Grid.Resources>
+        <Pivot Name ="piv_bestellungen" Title="Baja Kundenverwaltung">
+            <PivotItem Header="Bestellung">
+                <Grid>
+                    <TextBlock TextWrapping="Wrap"
+                        VerticalAlignment="Top"
+                              Margin="0,5,0,0"
+                             >
+                        <Run Text="{Binding vorname, Mode=TwoWay}"/>
+                        <Run Text=" "/>
+                        <Run Text="{Binding nachname, Mode=TwoWay}"/>
+                    </TextBlock>
+                    <StackPanel
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="0,40,86,0"
+                        Orientation="Horizontal"
+                        >
+                    <ComboBox x:Name="cbx_bestellungen" HorizontalAlignment="Left" VerticalAlignment="Center" DisplayMemberPath="bezeichnung"
+                             Width="200" SelectionChanged="cbx_bestellungen_SelectionChanged" />
+                        
+                        
+                        <AppBarButton x:Name="bA_add" HorizontalAlignment="Left" Icon="Add" Label="appbarbutton" VerticalAlignment="Stretch" 
+                                      IsCompact="True"
+                                      d:LayoutOverrides="Width" Click="bA_add_Click"/>
+                        <AppBarButton x:Name="bA_del" HorizontalAlignment="Left" Icon="Delete" Label="appbarbutton" VerticalAlignment="Stretch" 
+                                      IsCompact="True"
+                                      d:LayoutOverrides="Width" IsDoubleTapEnabled="False" Click="bA_del_Click"/>
+
+                    </StackPanel>
+
+                    <StackPanel x:Name="sp_bestDetails" HorizontalAlignment="Left" 
+                                VerticalAlignment="Top"
+                                Margin="0,110,0,0" Width="350">
+                        <TextBox TextWrapping="Wrap"
+                             Header="Bezeichnung" Margin="0,5"
+                             Text="{Binding bezeichnung, Mode=TwoWay}"/>
+                        <TextBox TextWrapping="Wrap"
+                             Header="Anzahl Personen" Margin="0,5"
+                             Text="{Binding anzPersonen, Mode=TwoWay}"/>
+                        <TextBox TextWrapping="Wrap"
+                             Header="Hinweise" Margin="0,5"
+                             Text="{Binding hinweise, Mode=TwoWay}"/>
+                        <DatePicker Header="Bestelldatum" Date="{Binding bestellDatum, Converter={StaticResource dateConverter}, Mode=TwoWay}"/>
+                        <DatePicker Header="Lieferdatum" Date="{Binding lieferDatum, Converter={StaticResource dateConverter}, Mode=TwoWay}"/>
+                        
+                    </StackPanel>
+
+                </Grid>
+            </PivotItem>
+            <PivotItem Header="Bestelldaten" Name="pi_Daten">
+                <StackPanel>
+                    <TextBox TextWrapping="Wrap"
+                             Header="Anrede" Margin="0,5"
+                             Text="{Binding anrede, Mode=TwoWay}"/>
+                    <TextBox TextWrapping="Wrap"
+                             Header="Nachname" Margin="0,5"
+                             Text="{Binding nachname, Mode=TwoWay}"/>
+                    <TextBox TextWrapping="Wrap"
+                             Header="Vorname" Margin="0,5" 
+                             Text="{Binding vorname, Mode=TwoWay}"/>
+                    
+                    <TextBox TextWrapping="Wrap"
+                             Header="Telefon" Margin="0,5"
+                             Text="{Binding telefon, Mode=TwoWay}"/>
+                    <TextBox TextWrapping="Wrap"
+                             Header="E-Mail" Margin="0,5" 
+                             Text="{Binding eMail, Mode=TwoWay}"/>
+                    <TextBox TextWrapping="Wrap"
+                             Header="Kunde seit" Margin="0,5"
+                             Text="{Binding kundeSeit, Mode=TwoWay}"/>
+                </StackPanel>
+            </PivotItem>
+        </Pivot>
+
+    </Grid>
+</Page>

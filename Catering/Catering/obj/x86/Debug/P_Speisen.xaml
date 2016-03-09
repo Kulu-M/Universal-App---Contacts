@@ -1,0 +1,68 @@
+﻿<Page
+    x:Class="Catering.P_Essen"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Catering"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Pivot x:ConnectionId='1' Title="Food" x:Name="pi_piSpeisen">
+            <PivotItem Header="Food">
+                <Grid>
+                    <TextBlock HorizontalAlignment="Left"
+             TextWrapping="Wrap" Text="Baja Catering" VerticalAlignment="Center"
+                   FontSize="25"
+                   Grid.Row="0"
+                   Foreground="OrangeRed" Margin="0,8" Width="350" TextAlignment="Center" />
+
+                    <StackPanel HorizontalAlignment="Left"  Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="340">
+                        <TextBox x:ConnectionId='3' Header="Filter"
+                     PlaceholderText="Speise eingeben"
+                     Name="tb_filter"                     
+                     Margin="0,20,0,10"                                     
+                     />
+
+                        <TextBlock>Geek</TextBlock>
+                        <ListBox x:ConnectionId='4' Name="lb_speisen" DisplayMemberPath="nachname"
+                     Width="320" Height="300"                                                                          />
+                    </StackPanel>
+                </Grid>
+            </PivotItem>
+            <PivotItem x:ConnectionId='2' x:Name="pi_details" Header="{Binding bezeichnung}">
+                
+                <Grid>
+
+                    <StackPanel>
+                        <TextBox TextWrapping="Wrap"
+                             Header="Bezeichnung" Margin="0,5"
+                             Text="{Binding bezeichnung, Mode=TwoWay}"/>
+                        <TextBox TextWrapping="Wrap"
+                             Header="Beschreibung" Margin="0,5"
+                             Text="{Binding beschreibung, Mode=TwoWay}"/>
+                        <TextBox TextWrapping="Wrap"
+                             Header="Kategorie" Margin="0,5" 
+                             Text="{Binding kat, Mode=TwoWay}"/>
+                        <TextBox TextWrapping="Wrap"
+                             Header="Preise" Margin="0,5" 
+                             Text="{Binding preis, Mode=TwoWay}"/>
+                    </StackPanel>
+
+                </Grid>
+                
+            </PivotItem>
+        </Pivot>
+
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+
+            <AppBarButton x:ConnectionId='5' x:Name="bA_delete" Icon="Delete" Label="Delete Customer"                      />
+            <AppBarButton x:ConnectionId='6' x:Name="bA_add" Icon="Add" Label="Speise hinzufügen"                      />
+            <AppBarButton x:ConnectionId='7' x:Name="bA_Orders" Label="Goto Orders" Icon="Go"                          />
+
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>
+

@@ -165,7 +165,7 @@ namespace Universal_Contacts
                 var result = (now - (lb_persons.SelectedItem as Person).dateofbirth).Days / 365;
 
                 //Configure DatePicker
-                dp_dob.Date = (lb_persons.SelectedItem as Person).dateofbirth;
+                //dp_dob.Date = (lb_persons.SelectedItem as Person).dateofbirth;
             }
         }
 
