@@ -1,2 +1,3 @@
-# Universal-App---Contacts
-Windows Universal App to track Contacts
+# Universal-Apps
+
+Windows Universal Apps made/started in the course.
